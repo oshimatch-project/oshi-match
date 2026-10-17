@@ -1,63 +1,192 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OSHI MATCH</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #fff8fb;
-      color: #39313a;
-    }
-    header {
-      padding: 22px 16px;
-      background: white;
-      border-bottom: 1px solid #f2dce7;
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-      color: #e879a9;
-      letter-spacing: 2px;
-    }
-    main {
-      padding: 24px 18px;
-      text-align: center;
-    }
-    .card {
-      margin: 24px auto;
-      padding: 24px 16px;
-      max-width: 320px;
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 4px 18px #e8cbd833;
-    }
-    button {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 24px;
-      background: #e879a9;
-      color: white;
-      font-size: 16px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OSHI MATCH ♡</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #fff6fa;
+  color: #493744;
+}
+header {
+  background: white;
+  padding: 18px 12px;
+  text-align: center;
+  border-bottom: 1px solid #f5dce8;
+  position: sticky;
+  top: 0;
+}
+header h1 {
+  color: #e875a5;
+  font-size: 23px;
+  letter-spacing: 2px;
+  margin: 0;
+}
+header p { margin: 5px 0 0; font-size: 12px; }
+main { max-width: 440px; margin: auto; padding: 20px 16px 40px; }
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 24px 18px;
+  margin: 14px 0;
+  text-align: center;
+  box-shadow: 0 5px 20px #dca7c522;
+}
+.hero { padding: 35px 18px; margin-top: 30px; }
+.heart { font-size: 55px; margin: 10px; }
+h2 { font-size: 23px; margin: 12px 0; }
+.name { font-size: 25px; font-weight: bold; margin: 12px 0; }
+.tag {
+  display: inline-block;
+  background: #fff0f6;
+  color: #c45383;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin: 4px;
+}
+.desc { line-height: 1.9; font-size: 14px; }
+button {
+  border: none;
+  border-radius: 28px;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 5px;
+}
+.primary { background: #e875a5; color: white; }
+.secondary { background: #fff0f6; color: #b84d7d; }
+button:active { transform: scale(.97); }
+.actions { display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+.small { font-size: 12px; color: #987f90; }
+.hidden { display: none !important; }
+.progress { color: #c66c93; font-size: 13px; }
+footer { text-align: center; color: #b29baa; font-size: 11px; padding: 20px; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>OSHI MATCH ♡</h1>
-    <p>今日、新しい出会いがあるかも。</p>
-  </header>
-  <main>
+<header>
+  <h1>OSHI MATCH ♡</h1>
+  <p>今日、新しい出会いがあるかも。</p>
+</header>
+
+<main>
+  <section id="home" class="card hero">
+    <div class="heart">💗</div>
+    <h2>あなたの推しに、出会おう。</h2>
+    <p class="desc">たくさんの出会いの中に、<br>運命の人がいるかもしれない。</p>
+    <button class="primary" onclick="startApp()">はじめる ♡</button>
+    <p class="small">あなたのための特別なマッチングアプリ</p>
+  </section>
+
+  <section id="discover" class="hidden">
+    <p class="progress" id="progress"></p>
     <div class="card">
-      <h2>あなたの推しに、出会おう。</h2>
-      <p>運命のマッチング、始まります。</p>
-      <button onclick="alert('推しとの出会いは、これから！')">
-        はじめる ♡
-      </button>
+      <div class="heart">♡</div>
+      <span class="tag" id="tag"></span>
+      <div class="name" id="name"></div>
+      <p class="desc" id="desc"></p>
+      <p class="small">プロフィールを見て、気になったらいいねしてね。</p>
+      <div class="actions">
+        <button class="secondary" onclick="nextProfile()">次の人へ →</button>
+        <button class="primary" onclick="likeProfile()">いいね ♡</button>
+      </div>
     </div>
-    <p>あなたのための特別なマッチングアプリ</p>
-  </main>
+    <div class="card">
+      <p>💌 気になる人を探してみよう</p>
+      <button class="secondary" onclick="showHome()">ホームへ戻る</button>
+    </div>
+  </section>
+
+  <section id="result" class="card hidden">
+    <div class="heart">💞</div>
+    <h2 id="resultTitle">マッチしました！</h2>
+    <p class="desc" id="resultDesc"></p>
+    <button class="primary" onclick="backToDiscover()">推し探しを続ける ♡</button>
+    <button class="secondary" onclick="showHome()">ホームへ</button>
+  </section>
+</main>
+
+<footer>OSHI MATCH ♡ made with love</footer>
+
+<script>
+const profiles = [
+  {name:"榊ネス", tag:"執事系？", desc:"丁寧な物腰の向こうに、意外な一面が隠れているかも。"},
+  {name:"岡平健治", tag:"音楽との出会い", desc:"音楽をきっかけに、少しずつ距離を縮めてみよう。"},
+  {name:"N", tag:"不思議な出会い", desc:"独特の世界を持つ彼。あなたはどんな話をしてみたい？"},
+  {name:"ななもり。", tag:"要注意？", desc:"なぜかマッチングアプリにいる謎の人物。何かがおかしい。"},
+  {name:"ひよこあにき", tag:"予測不能", desc:"出会った瞬間からにぎやか！ この出会い、どうなるの？"},
+  {name:"フレッド・ウィーズリー", tag:"いたずら好き", desc:"いたずらと笑顔がいっぱい。双子ならではのイベントも？"},
+  {name:"手越祐也", tag:"キラキラ系", desc:"明るく華やかな彼。笑顔の奥にある優しさにも注目。"},
+  {name:"木手永四郎", tag:"面倒見のいい人", desc:"やれやれと言いながらも、なんだかんだ気にかけてくれる。"},
+  {name:"五月雨空也", tag:"自信家？", desc:"余裕たっぷりに見える彼。誘いを受けたらどうなるのかな？"},
+  {name:"小山慶一郎", tag:"頼れる人", desc:"華やかさの奥にある努力家な一面。話すほど魅力が見えてくる？"},
+  {name:"高杉晋助", tag:"危険な香り", desc:"何を考えているのか読めない彼。あなたは踏み込める？"},
+  {name:"ジョージ・ウィーズリー", tag:"いたずら好き", desc:"軽やかな冗談の中に、彼ならではの魅力が隠れている。"},
+  {name:"桐谷修二", tag:"人気者", desc:"誰とでもうまくやれる彼。本当の顔を見せてくれるだろうか。"},
+  {name:"不破湊", tag:"ホスト系？", desc:"甘い言葉と独特の言動。なのに、ときどき妙に頼もしい。"},
+  {name:"ペパー", tag:"ぶっきらぼう", desc:"口は少し悪いけど、実は面倒見がいい？"},
+  {name:"六道骸", tag:"ミステリアス", desc:"丁寧な口調に漂う不穏な気配。クフフ……何が起きるの？"},
+  {name:"佐藤成樹", tag:"スポーツ系", desc:"スポーツをきっかけに、彼のことを知っていこう。"},
+  {name:"黒崎蘭丸", tag:"不器用な優しさ", desc:"ぶっきらぼうな言葉の裏に、隠れた優しさがあるかも。"},
+  {name:"風真玲太", tag:"幼なじみ", desc:"懐かしさと新鮮さが交差する再会。彼の気持ちは……？"},
+  {name:"トラファルガー・ロー", tag:"皮肉屋", desc:"挑発的な言葉の裏にある、本当の気持ちを知りたくなる。"}
+];
+
+let current = 0;
+let liked = new Set();
+
+function hideAll() {
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("discover").classList.add("hidden");
+  document.getElementById("result").classList.add("hidden");
+}
+function startApp() {
+  current = 0;
+  hideAll();
+  document.getElementById("discover").classList.remove("hidden");
+  renderProfile();
+}
+function renderProfile() {
+  const p = profiles[current];
+  document.getElementById("progress").textContent =
+    "PROFILE " + (current + 1) + " / " + profiles.length;
+  document.getElementById("name").textContent = p.name;
+  document.getElementById("tag").textContent = p.tag;
+  document.getElementById("desc").textContent = p.desc;
+}
+function nextProfile() {
+  current = (current + 1) % profiles.length;
+  renderProfile();
+}
+function likeProfile() {
+  const p = profiles[current];
+  liked.add(p.name);
+  hideAll();
+  document.getElementById("result").classList.remove("hidden");
+  const gag = p.name === "ななもり。";
+  document.getElementById("resultTitle").textContent =
+    gag ? "……えっ！？" : "マッチしました！ ♡";
+  document.getElementById("resultDesc").textContent =
+    gag
+    ? "なぜここに！？ この出会い、何かがおかしい……。"
+    : p.name + " とマッチ成立！\nDMができるようになった気分……♡（DM機能はこれから追加するよ！）";
+}
+function backToDiscover() {
+  hideAll();
+  document.getElementById("discover").classList.remove("hidden");
+  renderProfile();
+}
+function showHome() {
+  hideAll();
+  document.getElementById("home").classList.remove("hidden");
+}
+</script>
 </body>
 </html>
