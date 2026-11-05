@@ -109,8 +109,26 @@ footer { text-align: center; color: #b29baa; font-size: 11px; padding: 20px; }
     <h2 id="resultTitle">マッチしました！</h2>
     <p class="desc" id="resultDesc"></p>
     <button class="primary" onclick="backToDiscover()">推し探しを続ける ♡</button>
+  <button class="primary" onclick="openDM()">DMする ♡</button>
     <button class="secondary" onclick="showHome()">ホームへ</button>
   </section>
+
+<!-- DM画面 -->
+<section id="dm" class="card hidden">
+  <h2 id="dmTitle">💌 メッセージ</h2>
+  <div id="dmMessages">
+    <p>相手からのメッセージが届くよ♡</p>
+  </div>
+
+  <div id="dmChoices">
+    <p>なんて返信する？</p>
+    <button class="primary" onclick="replyDM(0)">よろしくね♡</button>
+    <button class="primary" onclick="replyDM(1)">会えて嬉しい！</button>
+    <button class="primary" onclick="replyDM(2)">どんな人なの？</button>
+  </div>
+
+  <button class="secondary" onclick="backToDiscover()">戻る</button>
+</section>
 </main>
 
 <footer>OSHI MATCH ♡ made with love</footer>
@@ -146,6 +164,7 @@ function hideAll() {
   document.getElementById("home").classList.add("hidden");
   document.getElementById("discover").classList.add("hidden");
   document.getElementById("result").classList.add("hidden");
+document.getElementById("dm").classList.add("hidden");
 }
 function startApp() {
   current = 0;
