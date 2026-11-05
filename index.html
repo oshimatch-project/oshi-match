@@ -206,6 +206,49 @@ function showHome() {
   hideAll();
   document.getElementById("home").classList.remove("hidden");
 }
+  function openDM() {
+  const p = profiles[current];
+
+  hideAll();
+
+  document.getElementById("dm").classList.remove("hidden");
+  document.getElementById("dmTitle").textContent =
+    "💌 " + p.name + " とのメッセージ";
+
+  document.getElementById("dmMessages").innerHTML =
+    "<p>💗 " + p.name + "：マッチありがとう！これからよろしくね。</p>";
+
+  document.getElementById("dmChoices").style.display = "block";
+}
+  function replyDM(choice) {
+  const p = profiles[current];
+
+  const replies = [
+    "こちらこそ！仲良くしてね♡",
+    "えっ、嬉しいな。俺も会えてよかった！",
+    "それはこれからゆっくり知ってもらおうかな。"
+  ];
+
+  const messages = document.getElementById("dmMessages");
+
+  const choices = [
+    "よろしくね♡",
+    "会えて嬉しい！",
+    "どんな人なの？"
+  ];
+
+  messages.innerHTML +=
+    "<p>あなた：" + choices[choice] + "</p>";
+
+  messages.innerHTML +=
+    "<p>💗 " + p.name + "：" + replies[choice] + "</p>";
+
+  document.getElementById("dmChoices").style.display = "none";
+}
+  function backToDiscover() {
+  hideAll();
+  document.getElementById("discover").classList.remove("hidden");
+}
 </script>
 </body>
 </html>
