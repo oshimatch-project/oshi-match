@@ -42,7 +42,7 @@ main { max-width: 440px; margin: auto; padding: 20px 16px 40px; }
 h2 { font-size: 23px; margin: 12px 0; }
 .name { font-size: 25px; font-weight: bold; margin: 12px 0; }
 .tag {
-  display: inline-block;
+  display: inlineら-block;
   background: #fff0f6;
   color: #c45383;
   padding: 6px 12px;
@@ -92,6 +92,7 @@ footer { text-align: center; color: #b29baa; font-size: 11px; padding: 20px; }
       <span class="tag" id="tag"></span>
       <div class="name" id="name"></div>
       <p class="desc" id="desc"></p>
+      <p class="small" id="hobby"></p>
       <p class="small">プロフィールを見て、気になったらいいねしてね。</p>
       <div class="actions">
         <button class="secondary" onclick="nextProfile()">次の人へ →</button>
@@ -135,7 +136,7 @@ footer { text-align: center; color: #b29baa; font-size: 11px; padding: 20px; }
 
 <script>
 const profiles = [
-  {name:"榊ネス", tag:"執事系？", desc:"丁寧な物腰の向こうに、意外な一面が隠れているかも。"},
+  {name:"榊ネス", tag:"執事系？", desc:"丁寧な物腰の向こうに、意外な一面が隠れているかも。", hobby:"紅茶・読書・身の回りのお世話"},
   {name:"岡平健治", tag:"音楽との出会い", desc:"音楽をきっかけに、少しずつ距離を縮めてみよう。"},
   {name:"N", tag:"不思議な出会い", desc:"独特の世界を持つ彼。あなたはどんな話をしてみたい？"},
   {name:"ななもり。", tag:"要注意？", desc:"なぜかマッチングアプリにいる謎の人物。何かがおかしい。"},
@@ -179,6 +180,7 @@ function renderProfile() {
   document.getElementById("name").textContent = p.name;
   document.getElementById("tag").textContent = p.tag;
   document.getElementById("desc").textContent = p.desc;
+  document.getElementById("hobby").textContent = "好きなこと：" + p.hobby;
 }
 function nextProfile() {
   current = (current + 1) % profiles.length;
