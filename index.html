@@ -180,7 +180,7 @@ function renderProfile() {
   document.getElementById("name").textContent = p.name;
   document.getElementById("tag").textContent = p.tag;
   document.getElementById("desc").textContent = p.desc;
-  document.getElementById("hobby").textContent = "好きなこと：" + p.hobby;
+  document.getElementById("hobby").textContent = "好きなもの・得意なこと：" + p.hobby;
 }
 function nextProfile() {
   current = (current + 1) % profiles.length;
