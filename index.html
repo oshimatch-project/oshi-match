@@ -89,7 +89,6 @@ footer { text-align: center; color: #b29baa; font-size: 11px; padding: 20px; }
     <p class="progress" id="progress"></p>
     <div class="card">
       <div class="heart">♡</div>
-      <span class="tag" id="tag"></span>
       <div class="name" id="name"></div>
       <p class="desc" id="desc"></p>
       <p class="small" id="hobby"></p>
@@ -178,7 +177,6 @@ function renderProfile() {
   document.getElementById("progress").textContent =
     "PROFILE " + (current + 1) + " / " + profiles.length;
   document.getElementById("name").textContent = p.name;
-  document.getElementById("tag").textContent = p.tag;
   document.getElementById("desc").textContent = p.desc;
   document.getElementById("hobby").textContent = "好きなもの・得意なこと：" + p.hobby;
 }
