@@ -109,7 +109,7 @@ footer { text-align: center; color: #b29baa; font-size: 11px; padding: 20px; }
     <h2 id="resultTitle">マッチしました！</h2>
     <p class="desc" id="resultDesc"></p>
     <button class="primary" onclick="backToDiscover()">推し探しを続ける ♡</button>
-  <button class="primary" onclick="openDM()">DMする ♡</button>
+　　<button id="dmButton" class="primary hidden" onclick="openDM()">♡DMする♡</button>
     <button class="secondary" onclick="showHome()">ホームへ</button>
   </section>
 
@@ -186,16 +186,19 @@ function nextProfile() {
 }
 function likeProfile() {
   const p = profiles[current];
+
   liked.add(p.name);
+
   hideAll();
   document.getElementById("result").classList.remove("hidden");
-  const gag = p.name === "ななもり。";
+
   document.getElementById("resultTitle").textContent =
-    gag ? "……えっ！？" : "マッチしました！ ♡";
+    "LIKEを送りました♡";
+
   document.getElementById("resultDesc").textContent =
-    gag
-    ? "なぜここに！？ この出会い、何かがおかしい……。"
-    : p.name + " とマッチ成立！\nDMができるようになった気分……♡（DM機能はこれから追加するよ！）";
+    p.name + "にLIKEを送ったよ！お返事を待ってみよう♡";
+  
+  document.getElementById("dmButton").classList.add("hidden");
 }
 function backToDiscover() {
   hideAll();
