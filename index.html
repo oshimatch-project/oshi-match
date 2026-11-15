@@ -269,12 +269,47 @@ function showHome() {
   document.getElementById("discover").classList.remove("hidden");
 }
 
+
 function showLikes() {
   const likeNames = [
     "五月雨空也",
     "風真玲太",
     "不破湊"
   ];
+
+  hideAll();
+  document.getElementById("likesScreen").classList.remove("hidden");
+
+  const list = document.getElementById("likesList");
+  list.innerHTML = "";
+
+  likeNames.forEach(name => {
+    const button = document.createElement("button");
+    button.className = "primary";
+    button.textContent = "💗 " + name;
+    button.style.display = "block";
+    button.style.width = "100%";
+    button.style.marginBottom = "10px";
+    button.onclick = () => viewLikedProfile(name);
+    list.appendChild(button);
+  });
+}
+
+function viewLikedProfile(name) {
+  const person = profiles.find(p => p.name === name);
+
+  if (!person) {
+    alert("プロフィールが見つからないよ！");
+    return;
+  }
+
+  alert(
+    "💗 " + person.name + "\n\n" +
+    person.desc + "\n\n" +
+    "好きなもの・得意なこと：" + person.hobby
+  );
+}
+
 
   const message = likeNames.map((name, index) =>
     (index + 1) + ". " + name
