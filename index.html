@@ -134,6 +134,16 @@ footer { text-align: center; color: #b29baa; font-size: 11px; padding: 20px; }
 
   <button class="secondary" onclick="backToDiscover()">戻る</button>
 </section>
+  
+<section id="likesScreen" class="hidden">
+  <div class="card">
+    <h2>💌 届いたLIKE</h2>
+    <p class="desc">あなたにLIKEを送ってくれた人たち♡</p>
+    <div id="likesList"></div>
+    <button class="secondary" onclick="showHome()">ホームへ戻る</button>
+  </div>
+</section>
+
 </main>
 
 <footer>OSHI MATCH ♡ made with love</footer>
@@ -170,6 +180,7 @@ function hideAll() {
   document.getElementById("discover").classList.add("hidden");
   document.getElementById("result").classList.add("hidden");
 document.getElementById("dm").classList.add("hidden");
+document.getElementById("likesScreen").classList.add("hidden");
 }
 function startApp() {
   current = 0;
