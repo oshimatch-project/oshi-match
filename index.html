@@ -3,391 +3,256 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OSHI MATCH ♡</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSHI MATCH</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #fff6fa;
-  color: #493744;
-}
-header {
-  background: white;
-  padding: 18px 12px;
-  text-align: center;
-  border-bottom: 1px solid #f5dce8;
-  position: sticky;
-  top: 0;
-}
-header h1 {
-  color: #e875a5;
-  font-size: 23px;
-  letter-spacing: 2px;
-  margin: 0;
-}
-header p { margin: 5px 0 0; font-size: 12px; }
-main { max-width: 440px; margin: auto; padding: 20px 16px 40px; }
-.card {
-  background: white;
-  border-radius: 24px;
-  padding: 24px 18px;
-  margin: 14px 0;
-  text-align: center;
-  box-shadow: 0 5px 20px #dca7c522;
-}
-.hero { padding: 35px 18px; margin-top: 30px; }
-.heart { font-size: 55px; margin: 10px; }
-h2 { font-size: 23px; margin: 12px 0; }
-.name { font-size: 25px; font-weight: bold; margin: 12px 0; }
-.desc { line-height: 1.9; font-size: 14px; }
-button {
-  border: none;
-  border-radius: 28px;
-  padding: 14px 20px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 5px;
-}
-.primary { background: #e875a5; color: white; }
-.secondary { background: #fff0f6; color: #b84d7d; }
-button:active { transform: scale(.97); }
-.actions { display: flex; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
-.small { font-size: 12px; color: #987f90; }
-.hidden { display: none !important; }
-.progress { color: #c66c93; font-size: 13px; }
-footer { text-align: center; color: #b29baa; font-size: 11px; padding: 20px; }
+*{box-sizing:border-box}
+body{margin:0;background:#fff7fa;color:#493d45;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
+header{background:#ed8eaa;color:white;text-align:center;padding:18px;font-size:22px;font-weight:bold;letter-spacing:2px}
+main{max-width:520px;margin:auto;padding:18px}
+h2{color:#d66e91;font-size:21px}
+.sub{color:#987d89;font-size:13px}
+.card{background:white;border-radius:20px;padding:20px;margin:14px 0;box-shadow:0 3px 14px #e9cbd533}
+.name{font-size:25px;font-weight:bold;margin:8px 0}
+.tag{display:inline-block;background:#fff0f5;color:#d66e91;border-radius:20px;padding:5px 12px;font-size:12px}
+.profile-text{line-height:1.8;white-space:pre-wrap}
+button{border:0;border-radius:24px;padding:13px 18px;font-size:15px;font-weight:bold;cursor:pointer;margin:5px 3px}
+.primary{background:#ed8eaa;color:white}
+.secondary{background:#fff0f5;color:#cb6b8c}
+.dark{background:#74616d;color:white}
+button:disabled{opacity:.4}
+nav{display:flex;gap:7px;position:sticky;bottom:0;background:#fff7fa;padding:10px 0}
+nav button{flex:1;font-size:12px;padding:12px 4px}
+.hidden{display:none!important}
+.item{border-bottom:1px solid #f4e5eb;padding:13px 3px}
+.item:last-child{border:0}
+.chat{background:#fff;border-radius:16px;padding:12px;margin:10px 0;line-height:1.6}
+.mine{background:#ffe5ee;margin-left:35px}
+.theirs{margin-right:35px}
+input{width:100%;padding:13px;border:1px solid #e9ccd7;border-radius:14px;font-size:15px}
+.actions{display:flex;justify-content:center;gap:12px;margin:20px 0}
+.small{font-size:12px;color:#9c8490}
 </style>
 </head>
 <body>
-<header>
-  <h1>OSHI MATCH ♡</h1>
-  <p>今日、新しい出会いがあるかも。</p>
-</header>
-
+<header>♡ OSHI MATCH ♡</header>
 <main>
-  <section id="home" class="card hero">
-    <div class="heart">💗</div>
-    <h2>あなたの推しに、出会おう。</h2>
-    <p class="desc">たくさんの出会いの中に、<br>運命の人がいるかもしれない。</p>
-    <button class="primary" onclick="startApp()">はじめる ♡</button>
-    <p class="small">あなたのための特別なマッチングアプリ</p>
-<div class="card">
-  <h3>💌 届いたLIKE</h3>
-  <p>新しいLIKEが届くかも…♡</p>
-  <button class="primary" onclick="showLikes()">LIKEを見る ♡</button>
-</div>
-  </section>
-
-  <section id="discover" class="hidden">
-    <p class="progress" id="progress"></p>
-    <div class="card">
-      <div class="heart">♡</div>
-      <div class="name" id="name"></div>
-<p class="desc" id="desc"></p>
-      <p class="small" id="hobby"></p>
-      <p class="small">プロフィールを見て、気になったらいいねしてね。</p>
-      <div class="actions">
-        <button class="secondary" onclick="nextProfile()">次の人へ →</button>
-        <button class="primary" onclick="likeProfile()">いいね ♡</button>
-      </div>
-    </div>
-    <div class="card">
-      <p>💌 気になる人を探してみよう</p>
-      <button class="secondary" onclick="showHome()">ホームへ戻る</button>
-    </div>
-  </section>
-
-  <section id="result" class="card hidden">
-    <div class="heart">💞</div>
-    <h2 id="resultTitle">マッチしました！</h2>
-    <p class="desc" id="resultDesc"></p>
-    <button class="primary" onclick="backToDiscover()">推し探しを続ける ♡</button>
-　　<button id="dmButton" class="primary hidden" onclick="openDM()">♡DMする♡</button>
-    <button class="secondary" onclick="showHome()">ホームへ</button>
-  </section>
-
-<!-- DM画面 -->
-<section id="dm" class="card hidden">
-  <h2 id="dmTitle">💌 メッセージ</h2>
-  <div id="dmMessages">
-    <p>相手からのメッセージが届くよ♡</p>
+<section id="home">
+  <div class="card" style="text-align:center;padding:32px 20px">
+    <div style="font-size:42px">💗</div>
+    <h2>運命の推しに、出会おう。</h2>
+    <p class="sub">ここから始まる、20人との恋の予感。</p>
+    <button class="primary" onclick="show('discover')">はじめる♡</button>
+    <button class="secondary" onclick="showLikes()">LIKEを見る♡</button>
+    <button class="secondary" onclick="showMatches()">マッチ・DMを見る♡</button>
   </div>
-
-  <div id="dmChoices">
-    <p>なんて返信する？</p>
-    <button class="primary" onclick="replyDM(0)">よろしくね♡</button>
-    <button class="primary" onclick="replyDM(1)">会えて嬉しい！</button>
-    <button class="primary" onclick="replyDM(2)">どんな人なの？</button>
-  </div>
-
-  <button class="secondary" onclick="backToDiscover()">戻る</button>
+  <p class="small" style="text-align:center">あなたの恋の進行状況は、この端末に保存されます。</p>
 </section>
-  
+
+<section id="discover" class="hidden">
+  <h2>お相手を探す</h2>
+  <p class="sub" id="progress"></p>
+  <div class="card" id="profileCard"></div>
+  <div class="actions">
+    <button class="secondary" onclick="nextProfile()">次の人へ</button>
+    <button class="primary" onclick="likeProfile()">LIKE ♡</button>
+  </div>
+  <button class="dark" onclick="show('home')">ホームへ戻る</button>
+</section>
+
 <section id="likesScreen" class="hidden">
-  <div class="card">
-    <h2>💌 届いたLIKE</h2>
-    <p class="desc">あなたにLIKEを送ってくれた人たち♡</p>
-    <div id="likesList"></div>
-    <button class="secondary" onclick="showHome()">ホームへ戻る</button>
-  </div>
+  <h2>届いたLIKE ♡</h2>
+  <p class="sub">あなたに興味を持ってくれた人たち。</p>
+  <div class="card" id="incomingList"></div>
+  <h2>あなたが送ったLIKE</h2>
+  <div class="card" id="outgoingList"></div>
+  <button class="dark" onclick="show('home')">ホームへ戻る</button>
 </section>
 
+<section id="matchesScreen" class="hidden">
+  <h2>マッチング ♡</h2>
+  <div class="card" id="matchesList"></div>
+  <button class="dark" onclick="show('home')">ホームへ戻る</button>
+</section>
+
+<section id="dmScreen" class="hidden">
+  <h2 id="dmTitle">メッセージ</h2>
+  <div id="chatLog"></div>
+  <div class="card">
+    <p class="sub">返信を選んでね。</p>
+    <div id="replyChoices"></div>
+  </div>
+  <button class="dark" onclick="showMatches()">マッチ一覧へ戻る</button>
+</section>
 </main>
 
-<footer>OSHI MATCH ♡ made with love</footer>
+<nav>
+  <button class="secondary" onclick="show('home')">HOME</button>
+  <button class="secondary" onclick="show('discover')">探す</button>
+  <button class="secondary" onclick="showLikes()">LIKE</button>
+  <button class="secondary" onclick="showMatches()">DM</button>
+</nav>
 
 <script>
-
 const profiles = [
-  {
-    name:"榊ネス",
-    desc:"素敵なご縁があればと思い、登録いたしました。お話しするのは好きですので、どうぞお気軽にお声がけください。私の意外な一面も、知っていただけたら嬉しいですね。",
-    hobby:"麻雀・モノマネ・ビートボックス・歌"
-  },
-  {
-    name:"岡平健治",
-    desc:"音楽が好きで、ずっと曲を作ったり歌ったりしています。音楽って不思議なもので、言葉にできない気持ちまで伝えてくれることがあるよね。そんな話も、ゆっくりできたら嬉しいです。",
-    hobby:"作詞・作曲・弾き語り"
-  },
-  {
-    name:"N",
-    desc:"ボクは、人やポケモンの心について考えることが好きなんだ。キミは、どんなことを考えている？ ぜひ聞かせてほしいな。",
-    hobby:"ポケモン・ポケモンとの対話"
-  },
-  {
-    name:"ななもり。",
-    desc:"はじめまして！普段は音楽や動画に関わることをしています。毎日楽しく過ごすことを大切にしていますが、何気ない時間を一緒に楽しめる相手と出会えたらいいなと思っています。まずは気軽にお話しできたら嬉しいです！",
-    hobby:"音楽・動画制作・企画"
-  },
-  {
-    name:"ひよこあにき",
-    desc:"オレはひよこあにき。普通の毎日じゃつまらないだろ？どうせ出会うなら、面白いことが好きなヤツがいい。退屈しない時間を一緒に過ごそうぜ！",
-    hobby:"裏バースデーパーティーのプロデュース・独特なダンス"
-  },
-  {
-    name:"フレッド・ウィーズリー",
-    desc:"やあ！退屈な毎日とはおさらばしたいと思わないかい？笑いの絶えない時間なら僕に任せてよ！面白いことを見つけるのは得意なんだ。",
-    hobby:"いたずら・魔法・クィディッチ"
-  },
-  {
-    name:"手越祐也",
-    desc:"どうも、手越祐也です！楽しいことが大好きで、毎日を全力で楽しんでます！でも、こういう出会いはちゃんと大切にしたいと思ってるよ。好きになった人には真っ直ぐ向き合いたいし、お互いを知りながら素敵な関係を築いていけたら嬉しいな！",
-    hobby:"歌・サッカー・ゲーム"
-  },
-  {
-    name:"木手永四郎",
-    desc:"木手永四郎です。良いご縁があればと思い、登録しました。お互いを尊重しながら、穏やかな時間を過ごせる方と出会えたら嬉しいですね。よろしくお願いします。",
-    hobby:"テニス・戦略的なプレー"
-  },
-  {
-    name:"五月雨空也",
-    desc:"五月雨空也です。こういう出会いも面白そうだなと思って始めてみました。人と話すのは好きだし、楽しい時間にする自信はあるよ。まあ、実際に会ってみないとわからないけどね。",
-    hobby:"歌・ゲーム配信"
-  },
-  {
-    name:"小山慶一郎",
-    desc:"小山慶一郎です！楽しいことが好きで、誰かと一緒に過ごす時間も大切にしています。何気ない話で笑い合ったり、お互いの好きなことを教え合ったり、そんな関係になれたら嬉しいです！",
-    hobby:"キャンプ・手話・格闘技観戦"
-  },
-  {
-    name:"高杉晋助",
-    desc:"高杉晋助。気の向くままに登録してみた。長く続く縁になるかは分からないが、面白い出会いがあればそれでいい。",
-    hobby:""
-  },
-  {
-    name:"ジョージ・ウィーズリー",
-    desc:"こんにちは！面白いことを探しているなら、きっと気が合うと思うよ。ちょっとした冗談やいたずらも、笑って楽しめる相手だと嬉しいな！",
-    hobby:"いたずら・魔法・クィディッチ"
-  },
-  {
-    name:"桐谷修二",
-    desc:"はじめまして！人と話すことが好きで、初対面の方ともすぐに打ち解けられる方だと思います。楽しいことを一緒に見つけながら、お互いのことを知っていけたら嬉しいです。よろしくお願いします！",
-    hobby:"人付き合い・周囲に合わせた立ち回り"
-  },
-  {
-    name:"不破湊",
-    desc:"不破湊です。せっかくの出会いなんで、楽しく過ごせたらいいなと思ってます。歌ったりゲームしたり、好きなことをしてる時間が好きですね。まあ、気楽にいきましょ〜。",
-    hobby:"歌・ゲーム"
-  },
-  {
-    name:"ペパー",
-    desc:"はじめまして、ペパーだ。料理が得意で、うまいものを食べるのも好きだ。誰かと一緒に食事を楽しんだり、何気ない時間を過ごしたりできたら嬉しい。よろしく頼む。",
-    hobby:"料理・ポケモンの健康管理"
-  },
-  {
-    name:"六道骸",
-    desc:"六道骸と申します。こうした出会いも、何かの縁かもしれませんね。普段とは違う会話や、新しい発見を楽しみながら、お互いのことを知っていければと思っています。",
-    hobby:""
-  },
-  {
-    name:"佐藤成樹",
-    desc:"佐藤成樹です。興味を持ったことには何でも挑戦してみたい性分です。人と違うことをしてみるのも、誰かの手助けをするのも嫌いやありません。気の合う方と、楽しい時間を過ごせたらええなと思っています。",
-    hobby:"手芸・助っ人稼業・もんじゃ焼き・コーラ"
-  },
-  {
-    name:"黒崎蘭丸",
-    desc:"黒崎蘭丸だ。細かいことは気にしない。回りくどいのも好きじゃない。好きなものにはとことん本気で向き合う。中途半端な付き合いをするつもりはない。よろしく頼む。",
-    hobby:"昼寝・ベース"
-  },
-  {
-    name:"風真玲太",
-    desc:"風真玲太です。人と話すことが好きで、相手に喜んでもらえることを考えるのも好きです。気軽に話せる関係から、少しずつお互いを知っていけたら嬉しいです。よろしくお願いします。",
-    hobby:"雑貨・人に似合うものを選ぶこと・接客"
-  },
-  {
-    name:"トラファルガー・ロー",
-    desc:"トラファルガー・ローだ。医者をしている。大勢で騒ぐより、落ち着いて話せる方が性に合ってる。気が合うかどうかは、話してみてから判断させてもらう。",
-    hobby:"医術・外科手術"
-  }
+{name:"榊ネス",tag:"執事系？",desc:"素敵なご縁があればと思い、登録いたしました。お話しするのは好きですので、どうぞお気軽にお声がけください。私の意外な一面も、知っていただけたら嬉しいですね。",hobby:"麻雀・モノマネ・ビートボックス・歌"},
+{name:"岡平健治",tag:"音楽との出会い",desc:"音楽が好きで、ずっと曲を作ったり歌ったりしています。音楽って不思議なもので、言葉にできない気持ちまで伝えてくれることがあるよね。そんな話も、ゆっくりできたら嬉しいです。",hobby:"作詞・作曲・弾き語り"},
+{name:"N",tag:"不思議な出会い",desc:"ボクは、人やポケモンの心について考えることが好きなんだ。キミは、どんなことを考えている？ ぜひ聞かせてほしいな。",hobby:"ポケモン・ポケモンとの対話"},
+{name:"ななもり。",tag:"毎日を楽しく",desc:"はじめまして！普段は音楽や動画に関わることをしています。毎日楽しく過ごすことを大切にしていますが、何気ない時間を一緒に楽しめる相手と出会えたらいいなと思っています。まずは気軽にお話しできたら嬉しいです！",hobby:"音楽・動画制作・企画"},
+{name:"ひよこあにき",tag:"退屈知らず",desc:"オレはひよこあにき。普通の毎日じゃつまらないだろ？どうせ出会うなら、面白いことが好きなヤツがいい。退屈しない時間を一緒に過ごそうぜ！",hobby:"裏バースデーパーティーのプロデュース・独特なダンス"},
+{name:"フレッド・ウィーズリー",tag:"いたずら好き",desc:"やあ！退屈な毎日とはおさらばしたいと思わないかい？笑いの絶えない時間なら僕に任せてよ！面白いことを見つけるのは得意なんだ。",hobby:"いたずら・魔法・クィディッチ"},
+{name:"手越祐也",tag:"まっすぐな情熱",desc:"どうも、手越祐也です！楽しいことが大好きで、毎日を全力で楽しんでます！でも、こういう出会いはちゃんと大切にしたいと思ってるよ。好きになった人には真っ直ぐ向き合いたいし、お互いを知りながら素敵な関係を築いていけたら嬉しいな！",hobby:"歌・サッカー・ゲーム"},
+{name:"木手永四郎",tag:"穏やかな時間",desc:"木手永四郎です。良いご縁があればと思い、登録しました。お互いを尊重しながら、穏やかな時間を過ごせる方と出会えたら嬉しいですね。よろしくお願いします。",hobby:"テニス・戦略的なプレー"},
+{name:"五月雨空也",tag:"気まぐれな出会い",desc:"五月雨空也です。こういう出会いも面白そうだなと思って始めてみました。人と話すのは好きだし、楽しい時間にする自信はあるよ。まあ、実際に会ってみないとわからないけどね。",hobby:"歌・ゲーム配信"},
+{name:"小山慶一郎",tag:"一緒に笑おう",desc:"小山慶一郎です！楽しいことが好きで、誰かと一緒に過ごす時間も大切にしています。何気ない話で笑い合ったり、お互いの好きなことを教え合ったり、そんな関係になれたら嬉しいです！",hobby:"キャンプ・手話・格闘技観戦"},
+{name:"高杉晋助",tag:"気ままな出会い",desc:"高杉晋助。気の向くままに登録してみた。長く続く縁になるかは分からないが、面白い出会いがあればそれでいい。",hobby:""},
+{name:"ジョージ・ウィーズリー",tag:"楽しいこと好き",desc:"こんにちは！面白いことを探しているなら、きっと気が合うと思うよ。ちょっとした冗談やいたずらも、笑って楽しめる相手だと嬉しいな！",hobby:"いたずら・魔法・クィディッチ"},
+{name:"桐谷修二",tag:"誰とでも仲良く",desc:"はじめまして！人と話すことが好きで、初対面の方ともすぐに打ち解けられる方だと思います。楽しいことを一緒に見つけながら、お互いのことを知っていけたら嬉しいです。よろしくお願いします！",hobby:"人付き合い・周囲に合わせた立ち回り"},
+{name:"不破湊",tag:"気楽にいきましょ〜",desc:"不破湊です。せっかくの出会いなんで、楽しく過ごせたらいいなと思ってます。歌ったりゲームしたり、好きなことをしてる時間が好きですね。まあ、気楽にいきましょ〜。",hobby:"歌・ゲーム"},
+{name:"ペパー",tag:"おいしい時間",desc:"はじめまして、ペパーだ。料理が得意で、うまいものを食べるのも好きだ。誰かと一緒に食事を楽しんだり、何気ない時間を過ごしたりできたら嬉しい。よろしく頼む。",hobby:"料理・ポケモンの健康管理"},
+{name:"六道骸",tag:"謎めいた出会い",desc:"六道骸と申します。こうした出会いも、何かの縁かもしれませんね。普段とは違う会話や、新しい発見を楽しみながら、お互いのことを知っていければと思っています。",hobby:""},
+{name:"佐藤成樹",tag:"好奇心いっぱい",desc:"佐藤成樹です。興味を持ったことには何でも挑戦してみたい性分です。人と違うことをしてみるのも、誰かの手助けをするのも嫌いやありません。気の合う方と、楽しい時間を過ごせたらええなと思っています。",hobby:"手芸・助っ人稼業・もんじゃ焼き・コーラ"},
+{name:"黒崎蘭丸",tag:"不器用な本気",desc:"黒崎蘭丸だ。細かいことは気にしない。回りくどいのも好きじゃない。好きなものにはとことん本気で向き合う。中途半端な付き合いをするつもりはない。よろしく頼む。",hobby:"昼寝・ベース"},
+{name:"風真玲太",tag:"誰にでも優しい人気者",desc:"風真玲太です。人と話すことが好きで、相手に喜んでもらえることを考えるのも好きです。気軽に話せる関係から、少しずつお互いを知っていけたら嬉しいです。よろしくお願いします。",hobby:"雑貨・人に似合うものを選ぶこと・接客"},
+{name:"トラファルガー・ロー",tag:"静かな時間を大切に",desc:"トラファルガー・ローだ。医者をしている。大勢で騒ぐより、落ち着いて話せる方が性に合ってる。気が合うかどうかは、話してみてから判断させてもらう。",hobby:"医術・外科手術"}
 ];
 
-let current = 0;
-let liked = new Set();
+const incomingOrder = ["五月雨空也","風真玲太","不破湊","手越祐也","黒崎蘭丸","六道骸","N","ペパー","榊ネス","フレッド・ウィーズリー","桐谷修二","岡平健治","木手永四郎","ジョージ・ウィーズリー","小山慶一郎","高杉晋助","佐藤成樹","ひよこあにき","ななもり。","トラファルガー・ロー"];
 
-function hideAll() {
-  document.getElementById("home").classList.add("hidden");
-  document.getElementById("discover").classList.add("hidden");
-  document.getElementById("result").classList.add("hidden");
-document.getElementById("dm").classList.add("hidden");
-document.getElementById("likesScreen").classList.add("hidden");
+let state;
+try{
+ state=JSON.parse(localStorage.getItem("oshiMatchSave"));
+}catch(e){}
+if(!state || !Array.isArray(state.sent) || !Array.isArray(state.incoming)){
+ state={sent:[],incoming:incomingOrder.slice(0,3),matches:[],chats:{},current:0};
 }
-function startApp() {
-  current = 0;
-  hideAll();
-  document.getElementById("discover").classList.remove("hidden");
-  renderProfile();
+if(!state.matches)state.matches=[];
+if(!state.chats)state.chats={};
+if(typeof state.current!=="number")state.current=0;
+
+function save(){
+ localStorage.setItem("oshiMatchSave",JSON.stringify(state));
 }
-
-function renderProfile() {
-  const p = profiles[current];
-
-  document.getElementById("progress").textContent =
-    "PROFILE " + (current + 1) + " / " + profiles.length;
-
-  document.getElementById("name").textContent = p.name;
-
-  document.getElementById("desc").textContent = p.desc;
-
-  const hobbyElement = document.getElementById("hobby");
-  hobbyElement.textContent =
-    p.hobby ? "好きなもの・得意なこと：" + p.hobby : "";
+function show(id){
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ if(id==="discover")renderProfile();
 }
-function nextProfile() {
-  current = (current + 1) % profiles.length;
-  renderProfile();
+function getProfile(name){return profiles.find(p=>p.name===name)}
+function has(list,name){return list.includes(name)}
+function addUnique(list,name){if(!has(list,name))list.push(name)}
+function updateMatches(){
+ state.incoming.forEach(name=>{
+  if(has(state.sent,name))addUnique(state.matches,name);
+ });
+ save();
 }
-function likeProfile() {
-  const p = profiles[current];
-
-  liked.add(p.name);
-
-  hideAll();
-  document.getElementById("result").classList.remove("hidden");
-
-  document.getElementById("resultTitle").textContent =
-    "LIKEを送りました♡";
-
-  document.getElementById("resultDesc").textContent =
-    p.name + "にLIKEを送ったよ！お返事を待ってみよう♡";
-  
-  document.getElementById("dmButton").classList.add("hidden");
-}
-function backToDiscover() {
-  hideAll();
-  document.getElementById("discover").classList.remove("hidden");
-  renderProfile();
-}
-function showHome() {
-  hideAll();
-  document.getElementById("home").classList.remove("hidden");
-}
-  function openDM() {
-  const p = profiles[current];
-
-  hideAll();
-
-  document.getElementById("dm").classList.remove("hidden");
-  document.getElementById("dmTitle").textContent =
-    "💌 " + p.name + " とのメッセージ";
-
-  document.getElementById("dmMessages").innerHTML =
-    "<p>💗 " + p.name + "：マッチありがとう！これからよろしくね。</p>";
-
-  document.getElementById("dmChoices").style.display = "block";
-}
-  function replyDM(choice) {
-  const p = profiles[current];
-
-  const replies = [
-    "こちらこそ！仲良くしてね♡",
-    "えっ、嬉しいな。俺も会えてよかった！",
-    "それはこれからゆっくり知ってもらおうかな。"
-  ];
-
-  const messages = document.getElementById("dmMessages");
-
-  const choices = [
-    "よろしくね♡",
-    "会えて嬉しい！",
-    "どんな人なの？"
-  ];
-
-  messages.innerHTML +=
-    "<p>あなた：" + choices[choice] + "</p>";
-
-  messages.innerHTML +=
-    "<p>💗 " + p.name + "：" + replies[choice] + "</p>";
-
-  document.getElementById("dmChoices").style.display = "none";
-}
-  function backToDiscover() {
-  hideAll();
-  document.getElementById("discover").classList.remove("hidden");
-}
-
-
-function showLikes() {
-  const likeNames = [
-    "五月雨空也",
-    "風真玲太",
-    "不破湊"
-  ];
-
-  hideAll();
-  document.getElementById("likesScreen").classList.remove("hidden");
-
-  const list = document.getElementById("likesList");
-  list.innerHTML = "";
-
-  likeNames.forEach(name => {
-    const button = document.createElement("button");
-    button.className = "primary";
-    button.textContent = "💗 " + name;
-    button.style.display = "block";
-    button.style.width = "100%";
-    button.style.marginBottom = "10px";
-    button.onclick = () => viewLikedProfile(name);
-    list.appendChild(button);
-  });
-}
-
-function viewLikedProfile(name) {
-  const person = profiles.find(p => p.name === name);
-
-  if (!person) {
-    alert("プロフィールが見つからないよ！");
-    return;
+function unlockIncoming(){
+ const stages=[3,6,9,12,15,18];
+ stages.forEach((count,index)=>{
+  if(state.sent.length>=count && incomingOrder[index+3]){
+   addUnique(state.incoming,incomingOrder[index+3]);
   }
-
-  alert(
-    "💗 " + person.name + "\n\n" +
-    person.desc + "\n\n" +
-    "好きなもの・得意なこと：" + person.hobby
-  );
-} 
+ });
+ updateMatches();
+}
+function renderProfile(){
+ const p=profiles[state.current];
+ document.getElementById("profileCard").innerHTML=`
+ <div class="tag">${p.tag}</div>
+ <div class="name">${p.name}</div>
+ <p class="profile-text">${p.desc}</p>
+ ${p.hobby?`<p class="sub">好きなこと：${p.hobby}</p>`:""}
+ ${has(state.sent,p.name)?'<p class="sub">♡ LIKE済み</p>':""}
+ `;
+ document.getElementById("progress").textContent=`${state.current+1} / ${profiles.length} 人`;
+}
+function nextProfile(){
+ state.current=(state.current+1)%profiles.length;
+ save();renderProfile();
+}
+function likeProfile(){
+ const name=profiles[state.current].name;
+ if(!has(state.sent,name)){
+  state.sent.push(name);
+  unlockIncoming();
+ }
+ updateMatches();
+ save();
+ const matched=has(state.matches,name);
+ document.getElementById("profileCard").innerHTML=`
+ <div style="text-align:center;padding:18px">
+ <div style="font-size:42px">${matched?"💗":"♡"}</div>
+ <h2>${matched?"マッチング成立！":"LIKEを送ったよ！"}</h2>
+ <div class="name">${name}</div>
+ <p>${matched?"お互いに気になっていたみたい。":"あなたの気持ちが届くといいね。"} </p>
+ ${matched?'<button class="primary" onclick="openDM('+JSON.stringify(name)+')">メッセージを送る♡</button>':""}
+ <button class="secondary" onclick="nextProfile()">次の人を見る</button>
+ </div>`;
+}
+function showLikes(){
+ show("likesScreen");
+ const incoming=document.getElementById("incomingList");
+ incoming.innerHTML=state.incoming.map(name=>`
+ <div class="item"><b>${name}</b>
+ ${has(state.matches,name)?'<span class="tag">MATCH!</span>':""}
+ <br><button class="secondary" onclick="viewIncoming('${name}')">プロフィールを見る</button>
+ ${has(state.matches,name)?'<button class="primary" onclick="openDM('${name}')">DMする♡</button>':""}
+ </div>`).join("") || "まだLIKEは届いていません。";
+ document.getElementById("outgoingList").innerHTML=state.sent.map(name=>`
+ <div class="item">${name} ${has(state.matches,name)?'<span class="tag">MATCH!</span>':""}</div>`).join("") || "まだLIKEを送っていません。";
+}
+function viewIncoming(name){
+ const p=getProfile(name);
+ if(!p)return;
+ alert(`${p.name}\n\n${p.desc}\n\n好きなこと：${p.hobby||"—"}\n\n気になったら「探す」からLIKEを送ってね♡`);
+}
+function showMatches(){
+ show("matchesScreen");
+ document.getElementById("matchesList").innerHTML=state.matches.map(name=>`
+ <div class="item"><b>${name}</b><br>
+ <button class="primary" onclick="openDM('${name}')">メッセージを開く♡</button></div>`).join("") || "まだマッチングしていません。気になる相手にLIKEを送ってみよう♡";
+}
+function openDM(name){
+ if(!has(state.matches,name))return;
+ if(!state.chats[name]){
+  state.chats[name]=[{from:"them",text:`マッチングありがとう！ ${name}です。こうしてお話しできて嬉しいです。` }];
+ }
+ save();
+ show("dmScreen");
+ document.getElementById("dmTitle").textContent=`${name}とのメッセージ`;
+ renderChat(name);
+}
+function renderChat(name){
+ const chat=state.chats[name]||[];
+ document.getElementById("chatLog").innerHTML=chat.map(m=>`
+ <div class="chat ${m.from==="me"?"mine":"theirs"}">${m.text}</div>`).join("");
+ const choices=[
+  "こちらこそ！マッチングできて嬉しい♡",
+  "プロフィールを見て気になってたんだ。",
+  "これからいろいろお話ししたいな！"
+ ];
+ document.getElementById("replyChoices").innerHTML=choices.map((t,i)=>
+  `<button class="secondary" onclick="replyDM('${name}',${i})">${t}</button>`
+ ).join("");
+}
+function replyDM(name,index){
+ const choices=[
+  "こちらこそ！マッチングできて嬉しい♡",
+  "プロフィールを見て気になってたんだ。",
+  "これからいろいろお話ししたいな！"
+ ];
+ const replies=[
+  "そう言ってもらえると嬉しいです。これからよろしくね！",
+  "えっ、そうだったんだ。プロフィールを見てもらえて嬉しいな。",
+  "もちろん！ゆっくりお互いのことを知っていこう。"
+ ];
+ state.chats[name].push({from:"me",text:choices[index]});
+ state.chats[name].push({from:"them",text:replies[index]});
+ save();renderChat(name);
+}
+save();
+renderProfile();
 </script>
 </body>
 </html>
