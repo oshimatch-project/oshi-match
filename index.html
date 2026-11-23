@@ -42,7 +42,7 @@ input{width:100%;padding:13px;border:1px solid #e9ccd7;border-radius:14px;font-s
     <div style="font-size:42px">💗</div>
     <h2>運命の推しに、出会おう。</h2>
     <p class="sub">ここから始まる、20人との恋の予感。</p>
-   <button class="primary" onclick="alert(typeof show)">はじめる♡</button>
+   <button class="primary" onclick="show('discover')">はじめる♡</button>
     <button class="secondary" onclick="showLikes()">LIKEを見る♡</button>
     <button class="secondary" onclick="showMatches()">マッチ・DMを見る♡</button>
   </div>
@@ -92,7 +92,7 @@ input{width:100%;padding:13px;border:1px solid #e9ccd7;border-radius:14px;font-s
   <button class="secondary" onclick="showLikes()">LIKE</button>
   <button class="secondary" onclick="showMatches()">DM</button>
 </nav>
-<script>window.onerror=function(message){alert("JSエラー："+message);};</script>
+
 <script>
 const profiles = [
 {name:"榊ネス",tag:"執事系？",desc:"素敵なご縁があればと思い、登録いたしました。お話しするのは好きですので、どうぞお気軽にお声がけください。私の意外な一面も、知っていただけたら嬉しいですね。",hobby:"麻雀・モノマネ・ビートボックス・歌"},
@@ -158,14 +158,26 @@ function unlockIncoming(){
 }
 function renderProfile(){
  const p=profiles[state.current];
- document.getElementById("profileCard").innerHTML=`
- <div class="tag">${p.tag}</div>
- <div class="name">${p.name}</div>
- <p class="profile-text">${p.desc}</p>
- ${p.hobby?`<p class="sub">好きなこと：${p.hobby}</p>`:""}
- ${has(state.sent,p.name)?'<p class="sub">♡ LIKE済み</p>':""}
- `;
- document.getElementById("progress").textContent=`${state.current+1} / ${profiles.length} 人`;
+
+ let hobbyHtml="";
+ if(p.hobby){
+  hobbyHtml='<p class="sub">好きなこと：'+p.hobby+'</p>';
+ }
+
+ let likedHtml="";
+ if(has(state.sent,p.name)){
+  likedHtml='<p class="sub">♡ LIKE済み</p>';
+ }
+
+ document.getElementById("profileCard").innerHTML=
+  '<div class="tag">'+p.tag+'</div>'+
+  '<div class="name">'+p.name+'</div>'+
+  '<p class="profile-text">'+p.desc+'</p>'+
+  hobbyHtml+
+  likedHtml;
+
+ document.getElementById("progress").textContent=
+  (state.current+1)+' / '+profiles.length+' 人';
 }
 function nextProfile(){
  state.current=(state.current+1)%profiles.length;
