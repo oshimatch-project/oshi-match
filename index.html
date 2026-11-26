@@ -248,25 +248,41 @@ function nextProfile(){
  state.current=(state.current+1)%profiles.length;
  save();renderProfile();
 }
+
 function likeProfile(){
- const name=profiles[state.current].name;
- if(!has(state.sent,name)){
-  state.sent.push(name);
-  unlockIncoming();
- }
- updateMatches();
- save();
- const matched=has(state.matches,name);
- document.getElementById("profileCard").innerHTML=`
- <div style="text-align:center;padding:18px">
- <div style="font-size:42px">${matched?"💗":"♡"}</div>
- <h2>${matched?"マッチング成立！":"LIKEを送ったよ！"}</h2>
- <div class="name">${name}</div>
- <p>${matched?"お互いに気になっていたみたい。":"あなたの気持ちが届くといいね。"} </p>
- ${matched?'<button class="primary" onclick="openDM('+JSON.stringify(name)+')">メッセージを送る♡</button>':""}
- <button class="secondary" onclick="nextProfile()">次の人を見る</button>
- </div>`;
+  const name = profiles[state.current].name;
+
+  if(!has(state.sent, name)){
+    state.sent.push(name);
+    unlockIncoming();
+  }
+
+  updateMatches();
+  save();
+
+  const matched = has(state.matches, name);
+
+  let dmButton = "";
+
+  if(matched){
+    dmButton =
+      '<button class="primary" onclick="openDM(' +
+      JSON.stringify(name) +
+      ')">メッセージを送る♡</button>';
+  }
+
+  document.getElementById("profileCard").innerHTML = `
+    <div style="text-align:center;padding:18px">
+      <div style="font-size:42px">${matched ? "💗" : "♡"}</div>
+      <h2>${matched ? "マッチング成立！" : "LIKEを送ったよ！"}</h2>
+      <div class="name">${name}</div>
+      <p>${matched ? "お互いに気になっていたみたい。" : "あなたの気持ちが届くといいね。"}</p>
+      ${dmButton}
+      <button class="secondary" onclick="nextProfile()">次の人を見る</button>
+    </div>
+  `;
 }
+
 function showLikes(){
  show("likesScreen");
  const incoming=document.getElementById("incomingList");
