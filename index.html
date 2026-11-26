@@ -42,7 +42,7 @@ input{width:100%;padding:13px;border:1px solid #e9ccd7;border-radius:14px;font-s
     <div style="font-size:42px">💗</div>
     <h2>運命の推しに、出会おう。</h2>
     <p class="sub">ここから始まる、20人との恋の予感。</p>
-   <button class="primary" onclick="show('discover')">はじめる♡</button>
+   <button class="primary" data-screen="discover">はじめる♡</button>
     <button class="secondary" onclick="showLikes()">LIKEを見る♡</button>
     <button class="secondary" onclick="showMatches()">マッチ・DMを見る♡</button>
   </div>
@@ -154,6 +154,15 @@ function show(id){
 
   window.scrollTo(0, 0);
 }
+
+// HTMLのonclickに依存せず、画面切り替えを登録
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-screen]").forEach(button => {
+    button.addEventListener("click", () => {
+      show(button.dataset.screen);
+    });
+  });
+});
 
 function getProfile(name){return profiles.find(p=>p.name===name)}
 function has(list,name){return list.includes(name)}
