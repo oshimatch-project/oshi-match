@@ -280,8 +280,30 @@ function replyDM(name,index){
  state.chats[name].push({from:"them",text:replies[index]});
  save();renderChat(name);
 }
-save();
-renderProfile();
+
+Object.assign(window, {
+  show,
+  nextProfile,
+  likeProfile,
+  showLikes,
+  showMatches,
+  viewIncoming,
+  openDM,
+  replyDM
+});
+
+try {
+  save();
+} catch (error) {
+  console.error("保存エラー:", error);
+}
+
+try {
+  renderProfile();
+} catch (error) {
+  console.error("プロフィール表示エラー:", error);
+}
 </script>
+
 </body>
 </html>
