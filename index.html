@@ -155,14 +155,19 @@ function show(id){
   window.scrollTo(0, 0);
 }
 
-// HTMLのonclickに依存せず、画面切り替えを登録
-document.addEventListener("DOMContentLoaded", () => {
+function bindScreenButtons(){
   document.querySelectorAll("[data-screen]").forEach(button => {
     button.addEventListener("click", () => {
       show(button.dataset.screen);
     });
   });
-});
+}
+
+if(document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", bindScreenButtons);
+}else{
+  bindScreenButtons();
+}
 
 function getProfile(name){return profiles.find(p=>p.name===name)}
 function has(list,name){return list.includes(name)}
