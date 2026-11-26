@@ -133,11 +133,28 @@ if(typeof state.current!=="number")state.current=0;
 function save(){
  localStorage.setItem("oshiMatchSave",JSON.stringify(state));
 }
+
 function show(id){
- document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
- document.getElementById(id).classList.remove("hidden");
- if(id==="discover")renderProfile();
+  const target = document.getElementById(id);
+
+  if(!target){
+    console.error("画面が見つかりません:", id);
+    return;
+  }
+
+  document.querySelectorAll("main section").forEach(section => {
+    section.classList.add("hidden");
+  });
+
+  target.classList.remove("hidden");
+
+  if(id === "discover"){
+    renderProfile();
+  }
+
+  window.scrollTo(0, 0);
 }
+
 function getProfile(name){return profiles.find(p=>p.name===name)}
 function has(list,name){return list.includes(name)}
 function addUnique(list,name){if(!has(list,name))list.push(name)}
