@@ -94,6 +94,40 @@ input{width:100%;padding:13px;border:1px solid #e9ccd7;border-radius:14px;font-s
 </nav>
 
 <script>
+(function(){
+  const panel = document.createElement("div");
+
+  panel.style.cssText =
+    "position:fixed;bottom:10px;left:10px;right:10px;" +
+    "z-index:99999;background:#fff;color:#333;" +
+    "border:2px solid #d66e91;border-radius:10px;" +
+    "padding:12px;font-size:13px;white-space:pre-wrap;" +
+    "overflow-wrap:anywhere;";
+
+  panel.textContent = "診断準備OK：JavaScriptを監視中";
+
+  document.addEventListener("DOMContentLoaded", function(){
+    document.body.appendChild(panel);
+  });
+
+  window.addEventListener("error", function(event){
+    panel.textContent =
+      "JavaScriptエラー\n" +
+      event.message + "\n" +
+      "行番号：" + event.lineno;
+    document.body.appendChild(panel);
+  });
+
+  document.addEventListener("click", function(event){
+    const button = event.target.closest("button");
+    if(button && button.textContent.includes("はじめる")){
+      panel.textContent += "\n「はじめる♡」のクリックを検知";
+    }
+  }, true);
+})();
+</script>
+
+<script>
 const profiles = [
 {name:"榊ネス",tag:"執事系？",desc:"素敵なご縁があればと思い、登録いたしました。お話しするのは好きですので、どうぞお気軽にお声がけください。私の意外な一面も、知っていただけたら嬉しいですね。",hobby:"麻雀・モノマネ・ビートボックス・歌"},
 {name:"岡平健治",tag:"音楽との出会い",desc:"音楽が好きで、ずっと曲を作ったり歌ったりしています。音楽って不思議なもので、言葉にできない気持ちまで伝えてくれることがあるよね。そんな話も、ゆっくりできたら嬉しいです。",hobby:"作詞・作曲・弾き語り"},
